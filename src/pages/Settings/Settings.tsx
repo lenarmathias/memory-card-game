@@ -3,21 +3,21 @@ import { Title } from '../../components/Title';
 import { StyledNavLink } from '../../components/Button';
 import type { Translation } from '../../locales';
 
-type HomeProps = {
+type SettingsProps = {
   text: Translation;
 };
 
-function Home({ text }: HomeProps) {
+function Settings({ text }: SettingsProps) {
   return (
     <main>
       <Container $flexColumn>
-        <Title>{text.home.title}</Title>
-        <StyledNavLink to='/settings'>
-          {text.home.buttonSettings}
+        <Title>{text.settings.title}</Title>
+        <StyledNavLink to='/home'>
+          {text.settings.backButton}
         </StyledNavLink>
       </Container>
     </main>
   );
 }
 
-export default Home;
+export default Settings;
