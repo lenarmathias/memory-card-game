@@ -1,11 +1,16 @@
 import { Container } from '../../components/Container';
 import { Title } from './Home.styles';
+import type { Translation } from '../../locales';
 
-function Home() {
+type HomeProps = {
+  text: Translation;
+};
+
+function Home({ text }: HomeProps) {
   return (
     <main>
       <Container>
-        <Title>Memory Card Game</Title>
+        <Title>{text.home.title}</Title>
       </Container>
     </main>
   );
