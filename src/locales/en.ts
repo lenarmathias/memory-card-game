@@ -8,3 +8,5 @@ export const en = {
     backButton: "Back"
   }
 };
+
+export type Translation = typeof en;

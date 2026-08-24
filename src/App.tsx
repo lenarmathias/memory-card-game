@@ -12,12 +12,12 @@ function App() {
     <Routes>
       <Route
         path='/settings'
-        element={<Settings text={translation} />}
+        element={<Settings text={translation.en} />}
       />
 
       <Route
         path='/home'
-        element={<Home text={translation} />}
+        element={<Home text={translation.en} />}
       />
 
       <Route
