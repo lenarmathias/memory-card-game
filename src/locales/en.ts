@@ -5,6 +5,8 @@ export const en = {
   },
   settings: {
     title: "Settings",
+    englishButton: "English",
+    polishButton: "Polish",
     backButton: "Back"
   }
 };

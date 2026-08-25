@@ -14,6 +14,7 @@ const buttonStyles = css`
   background-color: ${({ theme }) => theme.colors.buttonBackground};
   text-decoration: none;
   display: inline-block;
+  cursor: pointer;
 `;
 
 export const Button = styled.button`

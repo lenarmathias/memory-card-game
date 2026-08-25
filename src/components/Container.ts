@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
 
 interface ContainerProps {
+  $flex?: boolean;
   $flexColumn?: boolean;
+  $noPadding?: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -10,9 +12,17 @@ export const Container = styled.div<ContainerProps>`
   max-width: 1200px;
   padding: 40px 20px;
 
-  ${({ $flexColumn }) => $flexColumn && css`
+  ${({ $flex }) => $flex && css`
     display: flex;
-    flex-direction: column;
     gap: 20px;
+    justify-content: center;
+  `}
+
+  ${({ $flexColumn }) => $flexColumn && css`
+    flex-direction: column;
+  `}
+
+  ${({ $noPadding }) => $noPadding && css`
+    padding: 0;
   `}
 `;

@@ -7,6 +7,8 @@ export const pl: Translation = {
   },
   settings: {
     title: "Ustawienia",
+    englishButton: "Angielski",
+    polishButton: "Polski",
     backButton: "Powrót"
   }
 };

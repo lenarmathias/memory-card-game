@@ -10,7 +10,7 @@ type HomeProps = {
 function Home({ text }: HomeProps) {
   return (
     <main>
-      <Container $flexColumn>
+      <Container $flex $flexColumn>
         <Title>{text.home.title}</Title>
         <StyledNavLink to='/settings'>
           {text.home.buttonSettings}
