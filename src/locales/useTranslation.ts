@@ -1,30 +1,12 @@
-import { useState, useEffect } from 'react';
 import { translation, type Language } from '.';
+import type { Settings, SetSettings } from '../useLocalSettings';
 
 export type SetLanguage = (language: Language) => void;
 
-type Settings = {
-  language: Language;
-};
-
-const getInitialSettings = (): Settings => {
-  const savedSettings = localStorage.getItem("settings");
-
-  if (savedSettings) {
-    const parsedSettings = JSON.parse(savedSettings);
-
-    if (parsedSettings.language in translation) {
-      return parsedSettings;
-    }
-  }
-
-  return {
-    language: "en"
-  };
-};
-
-export const useTranslation = () => {
-  const [settings, setSettings] = useState<Settings>(getInitialSettings);
+export const useTranslation = (
+  settings: Settings,
+  setSettings: SetSettings
+) => {
   const text = translation[settings.language];
 
   const setLanguage = (language: Language) => {
@@ -33,10 +15,6 @@ export const useTranslation = () => {
       language
     }));
   };
-
-  useEffect(() => {
-    localStorage.setItem("settings", JSON.stringify(settings));
-  }, [settings]);
 
   return { text, setLanguage };
 };

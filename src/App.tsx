@@ -5,13 +5,22 @@ import {
 } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Settings from './pages/Settings/Settings';
+import { useLocalSettings } from './useLocalSettings';
 import { useTranslation } from './locales/useTranslation';
 
 function App() {
   const {
+    settings,
+    setSettings
+  } = useLocalSettings();
+
+  const {
     text,
     setLanguage
-  } = useTranslation();
+  } = useTranslation(
+    settings,
+    setSettings
+  );
 
   return (
     <Routes>
