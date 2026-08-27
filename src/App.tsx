@@ -4,6 +4,7 @@ import {
   Navigate
 } from 'react-router-dom';
 import Home from './pages/Home/Home';
+import Game from './pages/Game/Game';
 import Settings from './pages/Settings/Settings';
 import { useLocalSettings } from './useLocalSettings';
 import { useTranslation } from './locales/useTranslation';
@@ -32,6 +33,11 @@ function App() {
             setLanguage={setLanguage}
           />
         }
+      />
+
+      <Route
+        path='/game'
+        element={<Game text={text} />}
       />
 
       <Route

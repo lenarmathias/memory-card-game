@@ -35,7 +35,7 @@ function Settings({ text, setLanguage }: SettingsProps) {
           </Button>
         </Container>
         <StyledNavLink to='/home'>
-          {text.settings.backButton}
+          {text.shared.backButton}
         </StyledNavLink>
       </Container>
     </main >

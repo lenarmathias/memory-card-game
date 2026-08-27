@@ -12,6 +12,9 @@ function Home({ text }: HomeProps) {
     <main>
       <Container $flex $flexColumn>
         <Title>{text.home.title}</Title>
+        <StyledNavLink to='/game'>
+          {text.home.gameButton}
+        </StyledNavLink>
         <StyledNavLink to='/settings'>
           {text.home.buttonSettings}
         </StyledNavLink>
