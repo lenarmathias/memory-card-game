@@ -1,5 +1,6 @@
 import { Container } from '../../components/Container';
 import { StyledNavLink } from '../../components/Button';
+import { GameArea } from './Game.styles';
 import { deck } from '../../game/cards';
 import Card from '../../components/Card/Card';
 import type { Translation } from '../../locales';
@@ -12,14 +13,14 @@ function Game({ text }: GameProps) {
   return (
     <main>
       <Container $flex $flexColumn>
-        <Container $flex>
+        <GameArea>
           {deck.map(card => (
             <Card
               key={card.id}
               card={card}
             />
           ))}
-        </Container>
+        </GameArea>
         <StyledNavLink to='/home'>
           {text.shared.backButton}
         </StyledNavLink>
