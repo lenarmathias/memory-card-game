@@ -1,10 +1,10 @@
-export type Card = {
+export type CardData = {
   id: number;
   name: string;
   icon: string;
 };
 
-export const deck: Card[] = [
+export const deck: CardData[] = [
   { id: 1, name: "Sun", icon: "1" },
   { id: 2, name: "Moon", icon: "2" },
   { id: 3, name: "Star", icon: "3" },
