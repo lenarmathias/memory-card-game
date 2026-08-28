@@ -1,7 +1,7 @@
 import { Container } from '../../components/Container';
 import { StyledNavLink } from '../../components/Button';
 import { GameArea } from './Game.styles';
-import { deck } from '../../game/cards';
+import { useGame } from '../../game/useGame';
 import Card from '../../components/Card/Card';
 import type { Translation } from '../../locales';
 
@@ -10,13 +10,15 @@ type GameProps = {
 };
 
 function Game({ text }: GameProps) {
+  const readyDeck = useGame();
+
   return (
     <main>
       <Container $flex $flexColumn>
         <GameArea>
-          {deck.map(card => (
+          {readyDeck.map(card => (
             <Card
-              key={card.id}
+              key={card.key}
               card={card}
             />
           ))}

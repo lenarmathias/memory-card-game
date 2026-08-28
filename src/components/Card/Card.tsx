@@ -1,14 +1,14 @@
 import { GameCard } from './Card.styles';
-import type { CardData } from '../../game/cards';
+import type { PlayableCard } from '../../game/useGame';
 
 type CardProps = {
-  card: CardData;
+  card: PlayableCard;
 };
 
 function Card({ card }: CardProps) {
   return (
     <GameCard>
-      {card.icon}
+      {card.data.icon}
     </GameCard>
   );
 }
