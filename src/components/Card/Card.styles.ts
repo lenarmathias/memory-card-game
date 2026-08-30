@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const GameCard = styled.button`
+interface GameCardProps {
+  $backCover?: boolean;
+}
+
+export const GameCard = styled.button<GameCardProps>`
   width: 76px;
   height: 86px;
   border-radius: 10px;
@@ -10,4 +14,10 @@ export const GameCard = styled.button`
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+
+  ${({ $backCover }) => $backCover && css`
+    border: 3px solid ${({ theme }) => theme.colors.cardBackground};
+    background-color: ${({ theme }) => theme.colors.cardBackCover};
+    cursor: pointer;
+  `}
 `;

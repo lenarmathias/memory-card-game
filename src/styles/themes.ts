@@ -4,7 +4,8 @@ export const theme = {
     text: "#FFFFFF",
     buttonBackground: "#808080",
     buttonBorder: "#000000",
-    cardBackground: "#FFFFFF"
+    cardBackground: "#FFFFFF",
+    cardBackCover: "#2196F3"
   },
 
   breakpoints: {

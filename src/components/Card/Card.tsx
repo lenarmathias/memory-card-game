@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { GameCard } from './Card.styles';
 import type { PlayableCard } from '../../game/useGame';
 
@@ -6,9 +7,14 @@ type CardProps = {
 };
 
 function Card({ card }: CardProps) {
+  const [isFaceDown, setIsFaceDown] = useState(false);
+
   return (
-    <GameCard>
-      {card.data.icon}
+    <GameCard
+      $backCover={isFaceDown}
+      onClick={() => setIsFaceDown(previous => !previous)}
+    >
+      {isFaceDown ? null : card.data.icon}
     </GameCard>
   );
 }
