@@ -1,8 +1,8 @@
-import { Container } from '../../components/Container';
-import { StyledNavLink } from '../../components/Button';
-import { GameArea } from './Game.styles';
 import { useGame } from '../../game/useGame';
+import { Container } from '../../components/Container';
+import { GameArea } from './Game.styles';
 import Card from '../../components/Card/Card';
+import { Button, StyledNavLink } from '../../components/Button';
 import type { Translation } from '../../locales';
 
 type GameProps = {
@@ -10,22 +10,32 @@ type GameProps = {
 };
 
 function Game({ text }: GameProps) {
-  const readyDeck = useGame();
+  const {
+    readyDeck,
+    startGame,
+    gameStarted
+  } = useGame();
 
   return (
     <main>
+      <StyledNavLink to='/home' $topLeft>
+        {text.shared.backButton}
+      </StyledNavLink>
       <Container $flex $flexColumn>
         <GameArea>
           {readyDeck.map(card => (
             <Card
-              key={card.key}
+              key={`${card.key}-${gameStarted}`}  // Reset card state
               card={card}
+              gameStarted={gameStarted}
             />
           ))}
         </GameArea>
-        <StyledNavLink to='/home'>
-          {text.shared.backButton}
-        </StyledNavLink>
+        {!gameStarted && (
+          <Button onClick={startGame}>
+            {text.game.startButton}
+          </Button>
+        )}
       </Container>
     </main>
   );

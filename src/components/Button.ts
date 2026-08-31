@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
+interface ButtonProps {
+  $topLeft?: boolean;
+}
+
 const buttonStyles = css`
   width: 100%;
   max-width: 200px;
@@ -21,6 +25,12 @@ export const Button = styled.button`
   ${buttonStyles}
 `;
 
-export const StyledNavLink = styled(NavLink)`
+export const StyledNavLink = styled(NavLink) <ButtonProps>`
   ${buttonStyles}
+
+  ${({ $topLeft }) => $topLeft && css`
+    position: absolute;
+    top: 0;
+    left: 0;
+  `}
 `;

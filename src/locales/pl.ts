@@ -11,6 +11,9 @@ export const pl: Translation = {
     englishButton: "Angielski",
     polishButton: "Polski"
   },
+  game: {
+    startButton: "Rozpocznij"
+  },
   shared: {
     backButton: "Powrót"
   }

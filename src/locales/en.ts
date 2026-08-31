@@ -9,6 +9,9 @@ export const en = {
     englishButton: "English",
     polishButton: "Polish"
   },
+  game: {
+    startButton: "Start"
+  },
   shared: {
     backButton: "Back"
   }

@@ -22,6 +22,7 @@ const shuffleDeck = (deck: PlayableCard[]) => {
 };
 
 export const useGame = () => {
+  const [gameStarted, setGameStarted] = useState(false);
   const [readyDeck] = useState(() => {
     const doubledDeck = deck.flatMap(card => [
       { key: nanoid(), data: card },
@@ -33,5 +34,9 @@ export const useGame = () => {
     return shuffledDeck;
   });
 
-  return readyDeck;
+  const startGame = () => {
+    setGameStarted(true);
+  };
+
+  return { readyDeck, startGame, gameStarted };
 };
