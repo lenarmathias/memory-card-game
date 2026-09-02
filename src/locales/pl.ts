@@ -12,7 +12,9 @@ export const pl: Translation = {
     polishButton: "Polski"
   },
   game: {
-    startButton: "Rozpocznij"
+    startButton: "Rozpocznij",
+    restartButton: "Zagraj ponownie",
+    solvedTitle: "Dobra robota!"
   },
   shared: {
     backButton: "Powrót"

@@ -21,12 +21,23 @@ const shuffleDeck = (deck: PlayableCard[]) => {
   return shuffledDeck;
 };
 
+const generateDeck = () => {
+  const doubledDeck = deck.flatMap(card => [
+    { key: nanoid(), data: card },
+    { key: nanoid(), data: card }
+  ]);
+
+  return shuffleDeck(doubledDeck);
+};
+
 export const useGame = () => {
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameSolved, setGameSolved] = useState(false);
   const [selectedCards, setSelectedCards] = useState<PlayableCard[]>([]);
   const [solvedCards, setSolvedCards] = useState<number[]>([]);
   const [wrongCards, setWrongCards] = useState<string[]>([]);
   const [blockCards, setBlockCards] = useState(false);
+  const [readyDeck, setReadyDeck] = useState(generateDeck);
   const timeoutRef = useRef<number | null>(null);
 
   // Cleanup timer
@@ -38,19 +49,11 @@ export const useGame = () => {
     };
   }, []);
 
-  const [readyDeck] = useState(() => {
-    const doubledDeck = deck.flatMap(card => [
-      { key: nanoid(), data: card },
-      { key: nanoid(), data: card }
-    ]);
-
-    const shuffledDeck = shuffleDeck(doubledDeck);
-
-    return shuffledDeck;
-  });
-
-  const startGame = () => {
-    setGameStarted(true);
+  const restartGame = () => {
+    setGameStarted(false);
+    setGameSolved(false);
+    setSolvedCards([]);
+    setReadyDeck(generateDeck());
   };
 
   const selectCard = (card: PlayableCard) => {
@@ -65,6 +68,10 @@ export const useGame = () => {
           ...previous,
           card.data.id
         ]);
+
+        if (deck.length === solvedCards.length + 1) {
+          setGameSolved(true);
+        }
       } else {
         setWrongCards([selectedCards[0].key, card.key]);
         setBlockCards(true);
@@ -82,11 +89,13 @@ export const useGame = () => {
 
   return {
     readyDeck,
-    startGame,
+    setGameStarted,
     gameStarted,
     selectCard,
     solvedCards,
     wrongCards,
-    blockCards
+    blockCards,
+    gameSolved,
+    restartGame
   };
 };

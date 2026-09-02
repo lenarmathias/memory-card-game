@@ -10,7 +10,9 @@ export const en = {
     polishButton: "Polish"
   },
   game: {
-    startButton: "Start"
+    startButton: "Start",
+    restartButton: "Play Again",
+    solvedTitle: "Well Done!"
   },
   shared: {
     backButton: "Back"
