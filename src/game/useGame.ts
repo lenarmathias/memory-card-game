@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { deck, type CardData } from './cards';
 import { nanoid } from 'nanoid';
 
@@ -23,6 +23,21 @@ const shuffleDeck = (deck: PlayableCard[]) => {
 
 export const useGame = () => {
   const [gameStarted, setGameStarted] = useState(false);
+  const [selectedCards, setSelectedCards] = useState<PlayableCard[]>([]);
+  const [solvedCards, setSolvedCards] = useState<number[]>([]);
+  const [wrongCards, setWrongCards] = useState<string[]>([]);
+  const [blockCards, setBlockCards] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
+
+  // Cleanup timer
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   const [readyDeck] = useState(() => {
     const doubledDeck = deck.flatMap(card => [
       { key: nanoid(), data: card },
@@ -38,5 +53,40 @@ export const useGame = () => {
     setGameStarted(true);
   };
 
-  return { readyDeck, startGame, gameStarted };
+  const selectCard = (card: PlayableCard) => {
+    setSelectedCards(previous => [
+      ...previous,
+      card
+    ]);
+
+    if (selectedCards.length === 1) {
+      if (selectedCards[0].data.id === card.data.id) {
+        setSolvedCards(previous => [
+          ...previous,
+          card.data.id
+        ]);
+      } else {
+        setWrongCards([selectedCards[0].key, card.key]);
+        setBlockCards(true);
+
+        timeoutRef.current = setTimeout(() => {
+          setWrongCards([]);
+          setBlockCards(false);
+          timeoutRef.current = null;
+        }, 1000);
+      }
+
+      setSelectedCards([]);
+    }
+  };
+
+  return {
+    readyDeck,
+    startGame,
+    gameStarted,
+    selectCard,
+    solvedCards,
+    wrongCards,
+    blockCards
+  };
 };

@@ -5,7 +5,9 @@ export const theme = {
     buttonBackground: "#808080",
     buttonBorder: "#000000",
     cardBackground: "#FFFFFF",
-    cardBackCover: "#2196F3"
+    cardBackCover: "#2196F3",
+    solvedCard: "#D0FFBC",
+    wrongCard: "#ff0000"
   },
 
   breakpoints: {

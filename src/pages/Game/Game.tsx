@@ -13,7 +13,11 @@ function Game({ text }: GameProps) {
   const {
     readyDeck,
     startGame,
-    gameStarted
+    gameStarted,
+    selectCard,
+    solvedCards,
+    wrongCards,
+    blockCards
   } = useGame();
 
   return (
@@ -28,6 +32,10 @@ function Game({ text }: GameProps) {
               key={`${card.key}-${gameStarted}`}  // Reset card state
               card={card}
               gameStarted={gameStarted}
+              selectCard={selectCard}
+              solvedCards={solvedCards}
+              wrongCards={wrongCards}
+              blockCards={blockCards}
             />
           ))}
         </GameArea>

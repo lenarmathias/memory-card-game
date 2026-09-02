@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 
 interface GameCardProps {
   $backCover?: boolean;
+  $solved?: boolean;
+  $wrong?: boolean;
 }
 
 export const GameCard = styled.button<GameCardProps>`
@@ -19,5 +21,13 @@ export const GameCard = styled.button<GameCardProps>`
     border: 3px solid ${({ theme }) => theme.colors.cardBackground};
     background-color: ${({ theme }) => theme.colors.cardBackCover};
     cursor: pointer;
+  `}
+
+  ${({ $solved }) => $solved && css`
+    outline: 3px solid ${({ theme }) => theme.colors.solvedCard};
+  `}
+
+  ${({ $wrong }) => $wrong && css`
+    outline: 3px solid ${({ theme }) => theme.colors.wrongCard};
   `}
 `;
