@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
 import { GameCard } from './Card.styles';
+import { useCard } from './useCard';
 import type { PlayableCard } from '../../game/useGame';
 
 type CardProps = {
@@ -19,27 +19,18 @@ function Card({
   wrongCards,
   blockCards
 }: CardProps) {
-  const [isFaceDown, setIsFaceDown] = useState(gameStarted);
-  const solved = solvedCards.includes(card.data.id);
-  const wrong = wrongCards.includes(card.key);
-  const wasWrong = useRef(false);
-
-  useEffect(() => {
-    if (wrong) {
-      wasWrong.current = true;
-      return;
-    }
-
-    if (wasWrong.current) {
-      setIsFaceDown(true);
-      wasWrong.current = false;
-    }
-  }, [wrong]);
-
-  const cardClick = (card: PlayableCard) => {
-    setIsFaceDown(previous => !previous);
-    selectCard(card);
-  };
+  const {
+    isFaceDown,
+    solved,
+    wrong,
+    cardClick
+  } = useCard(
+    card,
+    gameStarted,
+    selectCard,
+    solvedCards,
+    wrongCards
+  );
 
   return (
     <GameCard
@@ -47,7 +38,7 @@ function Card({
       $solved={solved}
       $wrong={wrong}
       disabled={!isFaceDown || blockCards}
-      onClick={() => cardClick(card)}
+      onClick={cardClick}
     >
       {isFaceDown ? null : card.data.icon}
     </GameCard>
