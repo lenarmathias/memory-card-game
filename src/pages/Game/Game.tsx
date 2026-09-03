@@ -20,7 +20,9 @@ function Game({ text }: GameProps) {
     wrongCards,
     blockCards,
     gameSolved,
-    restartGame
+    restartGame,
+    gameDifficulty,
+    selectDifficulty
   } = useGame();
 
   return (
@@ -41,31 +43,59 @@ function Game({ text }: GameProps) {
         </Container>
       </main>
     ) : (
-      <main>
-        <StyledNavLink to='/home' $topLeft>
-          {text.shared.backButton}
-        </StyledNavLink>
-        <Container $flex $flexColumn>
-          <GameArea>
-            {readyDeck.map(card => (
-              <Card
-                key={`${card.key}-${gameStarted}`}  // Reset card state
-                card={card}
-                gameStarted={gameStarted}
-                selectCard={selectCard}
-                solvedCards={solvedCards}
-                wrongCards={wrongCards}
-                blockCards={blockCards}
-              />
-            ))}
-          </GameArea>
-          {!gameStarted && (
-            <Button onClick={() => setGameStarted(true)}>
-              {text.game.startButton}
+      gameDifficulty === "" ? (
+        <main>
+          <Container $flex $flexColumn>
+            <Title>
+              {text.game.difficultyTitle}
+            </Title>
+            <Button
+              onClick={() => selectDifficulty("easy")}
+            >
+              {text.game.easyDifficulty}
             </Button>
-          )}
-        </Container>
-      </main>
+            <Button
+              onClick={() => selectDifficulty("medium")}
+            >
+              {text.game.mediumDifficulty}
+            </Button>
+            <Button
+              onClick={() => selectDifficulty("hard")}
+            >
+              {text.game.hardDifficulty}
+            </Button>
+            <StyledNavLink to='/home'>
+              {text.shared.backButton}
+            </StyledNavLink>
+          </Container>
+        </main>
+      ) : (
+        <main>
+          <StyledNavLink to='/home' $topLeft>
+            {text.shared.backButton}
+          </StyledNavLink>
+          <Container $flex $flexColumn>
+            <GameArea>
+              {readyDeck.map(card => (
+                <Card
+                  key={`${card.key}-${gameStarted}`}  // Reset card state
+                  card={card}
+                  gameStarted={gameStarted}
+                  selectCard={selectCard}
+                  solvedCards={solvedCards}
+                  wrongCards={wrongCards}
+                  blockCards={blockCards}
+                />
+              ))}
+            </GameArea>
+            {!gameStarted && (
+              <Button onClick={() => setGameStarted(true)}>
+                {text.game.startButton}
+              </Button>
+            )}
+          </Container>
+        </main>
+      )
     )
   );
 }

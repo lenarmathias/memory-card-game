@@ -1,11 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
-import { deck, type CardData } from './cards';
+import {
+  easyDeck,
+  mediumDeck,
+  hardDeck,
+  type CardData
+} from './cards';
 import { nanoid } from 'nanoid';
 
 export type PlayableCard = {
   key: string;
   data: CardData;
 };
+
+type Difficulty = "easy" | "medium" | "hard";
 
 const shuffleDeck = (deck: PlayableCard[]) => {
   const shuffledDeck = [...deck];
@@ -21,7 +28,23 @@ const shuffleDeck = (deck: PlayableCard[]) => {
   return shuffledDeck;
 };
 
-const generateDeck = () => {
+const generateDeck = (gameDifficulty: Difficulty) => {
+  let deck: CardData[] = [];
+
+  switch (gameDifficulty) {
+    case "easy":
+      deck = easyDeck;
+      break;
+
+    case "medium":
+      deck = easyDeck.concat(mediumDeck);
+      break;
+
+    case "hard":
+      deck = easyDeck.concat(mediumDeck, hardDeck);
+      break;
+  }
+
   const doubledDeck = deck.flatMap(card => [
     { key: nanoid(), data: card },
     { key: nanoid(), data: card }
@@ -31,14 +54,16 @@ const generateDeck = () => {
 };
 
 export const useGame = () => {
+  const [gameDifficulty, setGameDifficulty] = useState<Difficulty | "">("");
   const [gameStarted, setGameStarted] = useState(false);
   const [gameSolved, setGameSolved] = useState(false);
   const [selectedCards, setSelectedCards] = useState<PlayableCard[]>([]);
   const [solvedCards, setSolvedCards] = useState<number[]>([]);
   const [wrongCards, setWrongCards] = useState<string[]>([]);
   const [blockCards, setBlockCards] = useState(false);
-  const [readyDeck, setReadyDeck] = useState(generateDeck);
+  const [readyDeck, setReadyDeck] = useState<PlayableCard[]>([]);
   const timeoutRef = useRef<number | null>(null);
+  const totalPairs = readyDeck.length / 2;
 
   // Cleanup timer
   useEffect(() => {
@@ -53,7 +78,15 @@ export const useGame = () => {
     setGameStarted(false);
     setGameSolved(false);
     setSolvedCards([]);
-    setReadyDeck(generateDeck());
+
+    if (gameDifficulty !== "") {
+      setReadyDeck(generateDeck(gameDifficulty));
+    }
+  };
+
+  const selectDifficulty = (difficulty: Difficulty) => {
+    setGameDifficulty(difficulty);
+    setReadyDeck(generateDeck(difficulty));
   };
 
   const selectCard = (card: PlayableCard) => {
@@ -69,7 +102,7 @@ export const useGame = () => {
           card.data.id
         ]);
 
-        if (deck.length === solvedCards.length + 1) {
+        if (totalPairs === solvedCards.length + 1) {
           setGameSolved(true);
         }
       } else {
@@ -96,6 +129,8 @@ export const useGame = () => {
     wrongCards,
     blockCards,
     gameSolved,
-    restartGame
+    restartGame,
+    gameDifficulty,
+    selectDifficulty
   };
 };

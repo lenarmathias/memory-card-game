@@ -14,7 +14,11 @@ export const pl: Translation = {
   game: {
     startButton: "Rozpocznij",
     restartButton: "Zagraj ponownie",
-    solvedTitle: "Dobra robota!"
+    solvedTitle: "Dobra robota!",
+    difficultyTitle: "Wybierz poziom trudności",
+    easyDifficulty: "Łatwy",
+    mediumDifficulty: "Średni",
+    hardDifficulty: "Trudny"
   },
   shared: {
     backButton: "Powrót"
