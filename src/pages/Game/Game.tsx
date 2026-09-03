@@ -3,6 +3,7 @@ import { Container } from '../../components/Container';
 import { GameArea } from './Game.styles';
 import Card from '../../components/Card/Card';
 import { Title } from '../../components/Title';
+import { Text } from '../../components/Text';
 import { Button, StyledNavLink } from '../../components/Button';
 import type { Translation } from '../../locales';
 
@@ -22,7 +23,8 @@ function Game({ text }: GameProps) {
     gameSolved,
     restartGame,
     gameDifficulty,
-    selectDifficulty
+    selectDifficulty,
+    wrongCounter
   } = useGame();
 
   return (
@@ -32,6 +34,9 @@ function Game({ text }: GameProps) {
           <Title>
             {text.game.solvedTitle}
           </Title>
+          <Text>
+            {text.game.wrongCounterLong}{wrongCounter}
+          </Text>
           <Container $flex>
             <Button onClick={restartGame}>
               {text.game.restartButton}
@@ -74,6 +79,11 @@ function Game({ text }: GameProps) {
           <StyledNavLink to='/home' $topLeft>
             {text.shared.backButton}
           </StyledNavLink>
+          {gameStarted && (
+            <Text $topGame>
+              {text.game.wrongCounterShort}{wrongCounter}
+            </Text>
+          )}
           <Container $flex $flexColumn>
             <GameArea>
               {readyDeck.map(card => (

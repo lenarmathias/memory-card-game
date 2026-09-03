@@ -60,6 +60,7 @@ export const useGame = () => {
   const [selectedCards, setSelectedCards] = useState<PlayableCard[]>([]);
   const [solvedCards, setSolvedCards] = useState<number[]>([]);
   const [wrongCards, setWrongCards] = useState<string[]>([]);
+  const [wrongCounter, setWrongCounter] = useState(0);
   const [blockCards, setBlockCards] = useState(false);
   const [readyDeck, setReadyDeck] = useState<PlayableCard[]>([]);
   const timeoutRef = useRef<number | null>(null);
@@ -78,6 +79,7 @@ export const useGame = () => {
     setGameStarted(false);
     setGameSolved(false);
     setSolvedCards([]);
+    setWrongCounter(0);
 
     if (gameDifficulty !== "") {
       setReadyDeck(generateDeck(gameDifficulty));
@@ -108,6 +110,7 @@ export const useGame = () => {
       } else {
         setWrongCards([selectedCards[0].key, card.key]);
         setBlockCards(true);
+        setWrongCounter(previous => previous + 1);
 
         timeoutRef.current = setTimeout(() => {
           setWrongCards([]);
@@ -131,6 +134,7 @@ export const useGame = () => {
     gameSolved,
     restartGame,
     gameDifficulty,
-    selectDifficulty
+    selectDifficulty,
+    wrongCounter
   };
 };

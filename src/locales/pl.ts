@@ -18,7 +18,9 @@ export const pl: Translation = {
     difficultyTitle: "Wybierz poziom trudności",
     easyDifficulty: "Łatwy",
     mediumDifficulty: "Średni",
-    hardDifficulty: "Trudny"
+    hardDifficulty: "Trudny",
+    wrongCounterLong: "Popełnione błędy: ",
+    wrongCounterShort: "Błędy: "
   },
   shared: {
     backButton: "Powrót"

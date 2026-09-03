@@ -16,7 +16,9 @@ export const en = {
     difficultyTitle: "Choose difficulty",
     easyDifficulty: "Easy",
     mediumDifficulty: "Medium",
-    hardDifficulty: "Hard"
+    hardDifficulty: "Hard",
+    wrongCounterLong: "Wrong attempts: ",
+    wrongCounterShort: "Wrong: "
   },
   shared: {
     backButton: "Back"
