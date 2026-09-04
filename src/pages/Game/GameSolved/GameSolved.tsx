@@ -8,12 +8,14 @@ type GameSolvedProps = {
   text: Translation;
   wrongCounter: number;
   restartGame: () => void;
+  changeDifficulty: () => void;
 };
 
 function GameSolved({
   text,
   wrongCounter,
-  restartGame
+  restartGame,
+  changeDifficulty
 }: GameSolvedProps) {
   return (
     <main>
@@ -27,6 +29,9 @@ function GameSolved({
         <Container $flex>
           <Button onClick={restartGame}>
             {text.game.restartButton}
+          </Button>
+          <Button onClick={changeDifficulty}>
+            {text.game.changeDifficultyButton}
           </Button>
           <StyledNavLink to='/home'>
             {text.shared.backButton}

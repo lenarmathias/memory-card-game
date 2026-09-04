@@ -12,6 +12,7 @@ export const en = {
   game: {
     startButton: "Start",
     restartButton: "Play Again",
+    changeDifficultyButton: "Change difficulty",
     solvedTitle: "Well Done!",
     difficultyTitle: "Choose difficulty",
     easyDifficulty: "Easy",

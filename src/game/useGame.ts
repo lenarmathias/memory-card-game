@@ -91,6 +91,14 @@ export const useGame = () => {
     setReadyDeck(generateDeck(difficulty));
   };
 
+  const changeDifficulty = () => {
+    setGameDifficulty("");
+    setGameStarted(false);
+    setGameSolved(false);
+    setSolvedCards([]);
+    setWrongCounter(0);
+  };
+
   const selectCard = (card: PlayableCard) => {
     setSelectedCards(previous => [
       ...previous,
@@ -135,6 +143,7 @@ export const useGame = () => {
     restartGame,
     gameDifficulty,
     selectDifficulty,
-    wrongCounter
+    wrongCounter,
+    changeDifficulty
   };
 };
