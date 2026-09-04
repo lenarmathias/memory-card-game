@@ -21,7 +21,10 @@ export const pl: Translation = {
     mediumDifficulty: "Średni",
     hardDifficulty: "Trudny",
     wrongCounterLong: "Popełnione błędy: ",
-    wrongCounterShort: "Błędy: "
+    wrongCounterShort: "Błędy: ",
+    newBestScore: "Nowy rekord: ",
+    previousBestScore: "Poprzedni rekord: ",
+    bestScore: "Rekord: "
   },
   shared: {
     backButton: "Powrót"

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useGameScores } from './useGameScores';
 import {
   easyDeck,
   mediumDeck,
@@ -54,13 +55,15 @@ const generateDeck = (gameDifficulty: Difficulty) => {
 };
 
 export const useGame = () => {
-  const [gameDifficulty, setGameDifficulty] = useState<Difficulty | "">("");
+  const { scores, saveScore } = useGameScores();
+  const [gameDifficulty, setGameDifficulty] = useState<Difficulty | null>(null);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameSolved, setGameSolved] = useState(false);
   const [selectedCards, setSelectedCards] = useState<PlayableCard[]>([]);
   const [solvedCards, setSolvedCards] = useState<number[]>([]);
   const [wrongCards, setWrongCards] = useState<string[]>([]);
   const [wrongCounter, setWrongCounter] = useState(0);
+  const [previousBestScore, setPreviousBestScore] = useState<number | null>(null);
   const [blockCards, setBlockCards] = useState(false);
   const [readyDeck, setReadyDeck] = useState<PlayableCard[]>([]);
   const timeoutRef = useRef<number | null>(null);
@@ -80,8 +83,9 @@ export const useGame = () => {
     setGameSolved(false);
     setSolvedCards([]);
     setWrongCounter(0);
+    setPreviousBestScore(null);
 
-    if (gameDifficulty !== "") {
+    if (gameDifficulty !== null) {
       setReadyDeck(generateDeck(gameDifficulty));
     }
   };
@@ -92,11 +96,12 @@ export const useGame = () => {
   };
 
   const changeDifficulty = () => {
-    setGameDifficulty("");
+    setGameDifficulty(null);
     setGameStarted(false);
     setGameSolved(false);
     setSolvedCards([]);
     setWrongCounter(0);
+    setPreviousBestScore(null);
   };
 
   const selectCard = (card: PlayableCard) => {
@@ -113,6 +118,11 @@ export const useGame = () => {
         ]);
 
         if (totalPairs === solvedCards.length + 1) {
+          if (gameDifficulty !== null) {
+            setPreviousBestScore(scores[gameDifficulty]);
+            saveScore(gameDifficulty, wrongCounter);
+          }
+
           setGameSolved(true);
         }
       } else {
@@ -144,6 +154,7 @@ export const useGame = () => {
     gameDifficulty,
     selectDifficulty,
     wrongCounter,
-    changeDifficulty
+    changeDifficulty,
+    previousBestScore
   };
 };

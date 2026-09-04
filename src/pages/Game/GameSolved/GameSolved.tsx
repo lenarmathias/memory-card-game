@@ -9,13 +9,15 @@ type GameSolvedProps = {
   wrongCounter: number;
   restartGame: () => void;
   changeDifficulty: () => void;
+  previousBestScore: number | null;
 };
 
 function GameSolved({
   text,
   wrongCounter,
   restartGame,
-  changeDifficulty
+  changeDifficulty,
+  previousBestScore
 }: GameSolvedProps) {
   return (
     <main>
@@ -24,8 +26,20 @@ function GameSolved({
           {text.game.solvedTitle}
         </Title>
         <Text>
-          {text.game.wrongCounterLong}{wrongCounter}
+          {previousBestScore === null ||
+            wrongCounter < previousBestScore
+            ? text.game.newBestScore
+            : text.game.wrongCounterLong
+          }{wrongCounter}
         </Text>
+        {previousBestScore !== null && (
+          <Text>
+            {wrongCounter < previousBestScore
+              ? text.game.previousBestScore
+              : text.game.bestScore
+            }{previousBestScore}
+          </Text>
+        )}
         <Container $flex>
           <Button onClick={restartGame}>
             {text.game.restartButton}

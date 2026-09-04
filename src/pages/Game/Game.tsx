@@ -22,7 +22,8 @@ function Game({ text }: GameProps) {
     gameDifficulty,
     selectDifficulty,
     wrongCounter,
-    changeDifficulty
+    changeDifficulty,
+    previousBestScore
   } = useGame();
 
   if (gameSolved) {
@@ -32,11 +33,12 @@ function Game({ text }: GameProps) {
         wrongCounter={wrongCounter}
         restartGame={restartGame}
         changeDifficulty={changeDifficulty}
+        previousBestScore={previousBestScore}
       />
     );
   }
 
-  if (gameDifficulty === "") {
+  if (gameDifficulty === null) {
     return (
       <GameDifficulty
         text={text}

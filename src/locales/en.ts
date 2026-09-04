@@ -19,7 +19,10 @@ export const en = {
     mediumDifficulty: "Medium",
     hardDifficulty: "Hard",
     wrongCounterLong: "Wrong attempts: ",
-    wrongCounterShort: "Wrong: "
+    wrongCounterShort: "Wrong: ",
+    newBestScore: "New best score: ",
+    previousBestScore: "Previous best score: ",
+    bestScore: "Best score:"
   },
   shared: {
     backButton: "Back"
