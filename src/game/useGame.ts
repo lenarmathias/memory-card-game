@@ -12,7 +12,7 @@ export type PlayableCard = {
   data: CardData;
 };
 
-type Difficulty = "easy" | "medium" | "hard";
+export type Difficulty = "easy" | "medium" | "hard";
 
 const shuffleDeck = (deck: PlayableCard[]) => {
   const shuffledDeck = [...deck];

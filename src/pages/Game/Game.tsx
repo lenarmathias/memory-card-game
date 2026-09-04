@@ -1,10 +1,7 @@
 import { useGame } from '../../game/useGame';
-import { Container } from '../../components/Container';
-import { GameArea } from './Game.styles';
-import Card from '../../components/Card/Card';
-import { Title } from '../../components/Title';
-import { Text } from '../../components/Text';
-import { Button, StyledNavLink } from '../../components/Button';
+import GameSolved from './GameSolved/GameSolved';
+import GameDifficulty from './GameDifficulty/GameDifficulty';
+import GameBoard from './GameBoard/GameBoard';
 import type { Translation } from '../../locales';
 
 type GameProps = {
@@ -27,86 +24,37 @@ function Game({ text }: GameProps) {
     wrongCounter
   } = useGame();
 
+  if (gameSolved) {
+    return (
+      <GameSolved
+        text={text}
+        wrongCounter={wrongCounter}
+        restartGame={restartGame}
+      />
+    );
+  }
+
+  if (gameDifficulty === "") {
+    return (
+      <GameDifficulty
+        text={text}
+        selectDifficulty={selectDifficulty}
+      />
+    );
+  }
+
   return (
-    gameSolved ? (
-      <main>
-        <Container $flex $flexColumn>
-          <Title>
-            {text.game.solvedTitle}
-          </Title>
-          <Text>
-            {text.game.wrongCounterLong}{wrongCounter}
-          </Text>
-          <Container $flex>
-            <Button onClick={restartGame}>
-              {text.game.restartButton}
-            </Button>
-            <StyledNavLink to='/home'>
-              {text.shared.backButton}
-            </StyledNavLink>
-          </Container>
-        </Container>
-      </main>
-    ) : (
-      gameDifficulty === "" ? (
-        <main>
-          <Container $flex $flexColumn>
-            <Title>
-              {text.game.difficultyTitle}
-            </Title>
-            <Button
-              onClick={() => selectDifficulty("easy")}
-            >
-              {text.game.easyDifficulty}
-            </Button>
-            <Button
-              onClick={() => selectDifficulty("medium")}
-            >
-              {text.game.mediumDifficulty}
-            </Button>
-            <Button
-              onClick={() => selectDifficulty("hard")}
-            >
-              {text.game.hardDifficulty}
-            </Button>
-            <StyledNavLink to='/home'>
-              {text.shared.backButton}
-            </StyledNavLink>
-          </Container>
-        </main>
-      ) : (
-        <main>
-          <StyledNavLink to='/home' $topLeft>
-            {text.shared.backButton}
-          </StyledNavLink>
-          {gameStarted && (
-            <Text $topGame>
-              {text.game.wrongCounterShort}{wrongCounter}
-            </Text>
-          )}
-          <Container $flex $flexColumn>
-            <GameArea>
-              {readyDeck.map(card => (
-                <Card
-                  key={`${card.key}-${gameStarted}`}  // Reset card state
-                  card={card}
-                  gameStarted={gameStarted}
-                  selectCard={selectCard}
-                  solvedCards={solvedCards}
-                  wrongCards={wrongCards}
-                  blockCards={blockCards}
-                />
-              ))}
-            </GameArea>
-            {!gameStarted && (
-              <Button onClick={() => setGameStarted(true)}>
-                {text.game.startButton}
-              </Button>
-            )}
-          </Container>
-        </main>
-      )
-    )
+    <GameBoard
+      text={text}
+      gameStarted={gameStarted}
+      wrongCounter={wrongCounter}
+      readyDeck={readyDeck}
+      selectCard={selectCard}
+      solvedCards={solvedCards}
+      wrongCards={wrongCards}
+      blockCards={blockCards}
+      setGameStarted={setGameStarted}
+    />
   );
 }
 
