@@ -9,6 +9,21 @@ export const en = {
     englishButton: "English",
     polishButton: "Polish"
   },
+  game: {
+    startButton: "Start",
+    restartButton: "Play Again",
+    changeDifficultyButton: "Change difficulty",
+    solvedTitle: "Well Done!",
+    difficultyTitle: "Choose difficulty",
+    easyDifficulty: "Easy",
+    mediumDifficulty: "Medium",
+    hardDifficulty: "Hard",
+    wrongCounterLong: "Wrong attempts: ",
+    wrongCounterShort: "Wrong: ",
+    newBestScore: "New best score: ",
+    previousBestScore: "Previous best score: ",
+    bestScore: "Best score: "
+  },
   shared: {
     backButton: "Back"
   }

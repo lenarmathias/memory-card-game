@@ -1,5 +1,7 @@
-import { Container } from '../../components/Container';
-import { StyledNavLink } from '../../components/Button';
+import { useGame } from '../../game/useGame';
+import GameSolved from './GameSolved/GameSolved';
+import GameDifficulty from './GameDifficulty/GameDifficulty';
+import GameBoard from './GameBoard/GameBoard';
 import type { Translation } from '../../locales';
 
 type GameProps = {
@@ -7,14 +9,56 @@ type GameProps = {
 };
 
 function Game({ text }: GameProps) {
+  const {
+    readyDeck,
+    setGameStarted,
+    gameStarted,
+    selectCard,
+    solvedCards,
+    wrongCards,
+    blockCards,
+    gameSolved,
+    restartGame,
+    gameDifficulty,
+    selectDifficulty,
+    wrongCounter,
+    changeDifficulty,
+    previousBestScore
+  } = useGame();
+
+  if (gameSolved) {
+    return (
+      <GameSolved
+        text={text}
+        wrongCounter={wrongCounter}
+        restartGame={restartGame}
+        changeDifficulty={changeDifficulty}
+        previousBestScore={previousBestScore}
+      />
+    );
+  }
+
+  if (gameDifficulty === null) {
+    return (
+      <GameDifficulty
+        text={text}
+        selectDifficulty={selectDifficulty}
+      />
+    );
+  }
+
   return (
-    <main>
-      <Container $flex $flexColumn>
-        <StyledNavLink to='/home'>
-          {text.shared.backButton}
-        </StyledNavLink>
-      </Container>
-    </main>
+    <GameBoard
+      text={text}
+      gameStarted={gameStarted}
+      wrongCounter={wrongCounter}
+      readyDeck={readyDeck}
+      selectCard={selectCard}
+      solvedCards={solvedCards}
+      wrongCards={wrongCards}
+      blockCards={blockCards}
+      setGameStarted={setGameStarted}
+    />
   );
 }
 
