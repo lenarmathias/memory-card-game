@@ -1,4 +1,4 @@
-import { GameCard } from './Card.styles';
+import { GameCard, CardIcon } from './Card.styles';
 import { useCard } from './useCard';
 import type { PlayableCard } from '../../game/useGame';
 
@@ -40,7 +40,12 @@ function Card({
       disabled={!isFaceDown || blockCards}
       onClick={cardClick}
     >
-      {isFaceDown ? null : card.data.icon}
+      {!isFaceDown &&
+        <CardIcon
+          alt={card.data.name}
+          src={card.data.icon}
+        />
+      }
     </GameCard>
   );
 }

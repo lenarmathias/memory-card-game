@@ -31,3 +31,7 @@ export const GameCard = styled.button<GameCardProps>`
     outline: 3px solid ${({ theme }) => theme.colors.wrongCard};
   `}
 `;
+
+export const CardIcon = styled.img`
+  width: 60px;
+`;

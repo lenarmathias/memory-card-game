@@ -22,7 +22,7 @@ export const en = {
     wrongCounterShort: "Wrong: ",
     newBestScore: "New best score: ",
     previousBestScore: "Previous best score: ",
-    bestScore: "Best score:"
+    bestScore: "Best score: "
   },
   shared: {
     backButton: "Back"
